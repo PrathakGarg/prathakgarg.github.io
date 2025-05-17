@@ -65,17 +65,16 @@
     }
     .view {
       opacity: 0;
-      visibility: hidden;
+      display: none;
       pointer-events: none;
       transition: opacity 0.4s ease-in-out, visibility 0s linear 0.4s;
       padding: 5rem 2rem;
       max-width: 850px;
       margin: auto;
     }
-    
     .view.active {
       opacity: 1;
-      visibility: visible;
+      display: block;
       pointer-events: auto;
       transition: opacity 0.4s ease-in-out;
     }
@@ -137,8 +136,8 @@
     }
     .contact a {
       display: inline;
-      margin-bottom: 0.5rem; /* optional */
-      color: inherit; /* keep same text color */
+      margin-bottom: 0.5rem;
+      color: inherit;
       text-decoration: none;
     }
     
@@ -164,8 +163,8 @@
       z-index: 100;
     }
     .dark-mode .theme-toggle {
-      background: #5A8DEE; /* Medium blue */
-      color: #F0F4FF; /* Very light text */
+      background: #5A8DEE; /* Muted blue */
+      color: #F0F4FF; /* Light pastel blue */
       box-shadow: 0 2px 8px rgba(90, 141, 238, 0.5);
       transition: background-color 0.3s ease, color 0.3s ease;
     }
@@ -233,22 +232,27 @@
     }
 
     function showView(id) {
-      const currentView = document.querySelector('.view.active');
-      if (currentView.id === id) return; // no change needed
+        const currentView = document.querySelector('.view.active');
+        if (currentView.id === id) return;
     
-      // Fade out current view
-      currentView.classList.remove('active');
-    
-      // Wait for fade-out transition to finish before switching
-      setTimeout(() => {
-        currentView.style.display = 'none';
-    
-        // Show new view
         const newView = document.getElementById(id);
-        newView.style.display = 'block';
-        newView.classList.add('active');
-      }, 400); // 400ms matches CSS transition duration
-    }
+    
+        currentView.style.opacity = '0';
+        currentView.style.pointerEvents = 'none';
+    
+        setTimeout(() => {
+          currentView.style.display = 'none';
+          currentView.classList.remove('active');
+    
+          newView.style.display = 'block';
+          newView.style.opacity = '1';
+          newView.style.pointerEvents = 'auto';
+    
+          requestAnimationFrame(() => {
+            newView.classList.add('active');
+          });
+        }, 400);
+      }
 
   </script>
 </body>
