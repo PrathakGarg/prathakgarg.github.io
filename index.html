@@ -1,259 +1,278 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
   <title>Prathak Garg | AI & Full Stack Engineer</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    // Custom Tailwind theme configuration
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            'light-bg': '#f8f9fa',
+            'dark-bg': '#121212',
+            'light-card': '#ffffff',
+            'dark-card': '#1e1e1e',
+            'light-text': '#1a202c',
+            'dark-text': '#e2e8f0',
+            'light-subtle': '#4a5568',
+            'dark-subtle': '#a0aec0',
+            'primary': '#3b82f6',
+            'accent': '#ec4899',
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    :root {
-      --bg-light: #fffaf4;
-      --bg-dark: #121212;
-      --text-light: #1a1a1a;
-      --text-dark: #E0E0E0;
-      --primary: #1e88e5;
-      --accent: #ff6f61;
-    }
+    /* Add a smooth transition for color properties */
     * {
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: var(--bg-light);
-      color: var(--text-light);
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-    .dark-mode {
-      background: var(--bg-dark);
-      color: var(--text-dark);
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 1rem 2rem;
-      background-color: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    .nav-content {
-      display: flex;
-      gap: 2rem;
-    }
-    nav a {
-      color: var(--text-light);
-      text-decoration: none;
-      font-weight: 600;
-    }
-    nav a:hover {
-      color: var(--primary);
-    }
-    .dark-mode nav {
-      background-color: #1E1E1E;
-      box-shadow: 0 2px 6px rgba(255 255 255 / 0.1);
-    }
-    .dark-mode nav a {
-      color: #FF8C69;
-      transition: color 0.3s ease;
-    }
-    .dark-mode nav a:hover {
-      color: #B0CFFF; /* Warm accent, complements blue well */
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
     .view {
-      opacity: 0;
-      display: none;
-      pointer-events: none;
-      transition: opacity 0.4s ease-in-out, visibility 0s linear 0.4s;
-      padding: 5rem 2rem;
-      max-width: 850px;
-      margin: auto;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        display: none;
     }
     .view.active {
-      opacity: 1;
-      display: block;
-      pointer-events: auto;
-      transition: opacity 0.4s ease-in-out;
-    }
-    .home {
-      text-align: center;
-    }
-    .home img {
-      border-radius: 50%;
-      width: 150px;
-      height: 150px;
-    }
-    .home h1 {
-      font-size: 2.8rem;
-      margin: 1rem 0 0.5rem;
-    }
-    .home h1 span {
-      font-weight: 700;
-      color: #222; /* default light mode color */
-    }
-    .home .subtitle {
-      font-size: 1.4rem;
-      font-weight: 400;
-      color: var(--accent);
-    }
-    .home section {
-      margin-top: 2rem;
-      color: var(--text-light);
-    }
-    .dark-mode .home h1 span {
-      color: #E0E0E0; /* light off-white for dark mode */
-    }
-    .dark-mode .home section {
-      color: #C4C4C4;
-    }
-    .project {
-      background: #fff;
-      margin: 1.5rem 0;
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    }
-    .dark-mode .project {
-      background: #232323;
-      box-shadow: 0 4px 12px rgba(0 0 0 / 0.6); /* subtle, deeper shadow */
-      color: #DDD; /* Light text */
-    }
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      background-color: #eee;
-    }
-    .dark-mode footer {
-      background-color: #181818;
-      color: #A0A0A0;
-    }
-    .contact i {
-      margin-right: 0.5rem;
-      color: var(--primary);
-    }
-    .contact a {
-      display: inline;
-      margin-bottom: 0.5rem;
-      color: inherit;
-      text-decoration: none;
-    }
-    
-    .contact a:hover {
-      text-decoration: underline;
-    }
-    .dark-mode .contact i {
-      color: #82AFFF; /* Muted blue, consistent with nav */
-    }
-    .dark-mode .contact a {
-      color: #D0D7FF; /* Light pastel blue for links */
-    }
-    .theme-toggle {
-      position: fixed;
-      bottom: 1rem;
-      right: 1rem;
-      font-size: 1.2rem;
-      cursor: pointer;
-      background: var(--primary);
-      color: white;
-      padding: 0.5rem 0.75rem;
-      border-radius: 5px;
-      z-index: 100;
-    }
-    .dark-mode .theme-toggle {
-      background: #5A8DEE; /* Muted blue */
-      color: #F0F4FF; /* Light pastel blue */
-      box-shadow: 0 2px 8px rgba(90, 141, 238, 0.5);
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    .dark-mode .theme-toggle:hover {
-      background: #7AABFF;
-      color: #FFFFFF;
+        opacity: 1;
+        transform: translateY(0);
+        display: block;
     }
   </style>
 </head>
-<body>
-  <div class="theme-toggle" onclick="toggleTheme()">
-    <i class="fas fa-adjust"></i>
-  </div>
+<body class="bg-light-bg text-light-text dark:bg-dark-bg dark:text-dark-text font-sans antialiased">
 
-  <nav>
-    <div class="nav-content">
-      <a href="#" onclick="showView('home')">Home</a>
-      <a href="#" onclick="showView('projects')">Projects</a>
-      <a href="#" onclick="showView('contact')">Contact</a>
-      <a href="/Resume.pdf" target="_blank">Resume</a>
+  <!-- Header & Navigation -->
+  <header class="bg-light-card/80 dark:bg-dark-card/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="#home" class="text-xl font-bold text-primary">Prathak Garg</a>
+      <div class="hidden md:flex items-center space-x-6">
+        <a href="#about" class="hover:text-primary">About</a>
+        <a href="#skills" class="hover:text-primary">Skills</a>
+        <a href="#projects" class="hover:text-primary">Projects</a>
+        <a href="#contact" class="hover:text-primary">Contact</a>
+        <a href="/Resume.pdf" target="_blank" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Resume</a>
+      </div>
+      <div class="flex items-center space-x-4">
+          <button id="theme-toggle" class="text-xl">
+            <i class="fa-solid fa-sun"></i>
+          </button>
+           <button id="mobile-menu-btn" class="md:hidden text-xl">
+            <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+      <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden flex-col items-center space-y-4 py-4 bg-light-card dark:bg-dark-card">
+        <a href="#about" class="block w-full text-center py-2 hover:text-primary">About</a>
+        <a href="#skills" class="block w-full text-center py-2 hover:text-primary">Skills</a>
+        <a href="#projects" class="block w-full text-center py-2 hover:text-primary">Projects</a>
+        <a href="#contact" class="block w-full text-center py-2 hover:text-primary">Contact</a>
+        <a href="/Resume.pdf" target="_blank" class="block w-full text-center py-2 bg-primary text-white rounded-md hover:bg-blue-600 transition-colors mx-4">Resume</a>
     </div>
-  </nav>
+  </header>
 
-  <div id="home" class="view home active">
-  <img src="https://avatars.githubusercontent.com/u/75690201?v=4" alt="Prathak Garg">
-  <h1><span>Prathak Garg</span></h1>
-  <h2 class="subtitle">AI Engineer & Full Stack Developer</h2>
-    <section style="max-width: 600px; margin: 2rem auto; text-align: left;">
-    <h2>About Me</h2>
-    <p>I’m an AI and Full Stack Engineer currently working at Autodesk India. I specialize in designing intelligent systems using LLMs, AI agents, and cloud-native infrastructure. I also have strong experience building frontend and backend applications using React.js, Vue.js, and Python frameworks like FastAPI and Django. I’m well-versed in deploying production-ready solutions on AWS using EC2, Lambda, SageMaker, S3, and more.</p>
-    <p>Whether you need a quick prototype, a scalable backend, or an AI-powered assistant in production — I bring both technical depth and execution speed.</p>
+  <main class="container mx-auto px-6 py-12">
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-[70vh] flex flex-col md:flex-row items-center justify-center text-center md:text-left">
+      <div class="md:w-1/2 animate-fade-in-up">
+        <img src="https://avatars.githubusercontent.com/u/75690201?v=4" alt="Prathak Garg" class="w-40 h-40 rounded-full mx-auto md:mx-0 shadow-lg border-4 border-white dark:border-gray-700">
+        <h1 class="text-4xl md:text-5xl font-bold mt-6">Prathak Garg</h1>
+        <p class="text-xl text-accent font-medium mt-2">AI Engineer & Full Stack Developer</p>
+        <div class="mt-8 flex justify-center md:justify-start space-x-4">
+          <a href="https://github.com/prathakgarg" target="_blank" class="text-3xl text-light-subtle dark:text-dark-subtle hover:text-primary"><i class="fab fa-github"></i></a>
+          <a href="https://linkedin.com/in/prathakgarg" target="_blank" class="text-3xl text-light-subtle dark:text-dark-subtle hover:text-primary"><i class="fab fa-linkedin"></i></a>
+          <a href="mailto:prathakgarg@gmail.com" class="text-3xl text-light-subtle dark:text-dark-subtle hover:text-primary"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
     </section>
-  </div>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20 animate-fade-in-up" style="animation-delay: 0.2s;">
+        <h2 class="text-3xl font-bold text-center mb-12">About Me</h2>
+        <div class="max-w-3xl mx-auto bg-light-card dark:bg-dark-card p-8 rounded-lg shadow-md">
+            <p class="text-lg leading-relaxed text-light-subtle dark:text-dark-subtle">
+                I’m an AI and Full Stack Engineer at <span class="font-semibold text-primary">Autodesk India</span>, where I specialize in designing intelligent systems using LLMs, AI agents, and cloud-native infrastructure. I have strong experience building robust applications with React.js, Vue.js, and Python frameworks like FastAPI and Django.
+                <br><br>
+                I’m well-versed in deploying production-ready solutions on <span class="font-semibold text-primary">AWS</span> (EC2, Lambda, SageMaker, S3). Whether you need a quick prototype, a scalable backend, or an AI-powered assistant in production — I bring both technical depth and execution speed.
+            </p>
+        </div>
+    </section>
 
-  <div id="projects" class="view">
-    <h2>Projects</h2>
-    <div class="project">
-      <h3>Smart AI Assistant for Knowledge Retrieval (RAG + GPT-4)</h3>
-      <p>Developed an internal AI assistant that answers user queries by retrieving relevant data from internal documents. Combined LangChain, GPT-4, OCR, and custom logic to serve answers from scanned PDFs and cloud docs. Deployed using FastAPI and integrated with existing systems.</p>
-    </div>
-    <div class="project">
-      <h3>End-to-End OCR + AI Document Processor</h3>
-      <p>Built a cloud-based pipeline that takes scanned images and documents, extracts text via OCR, and summarizes key insights using GPT-4. Perfect for automating document-heavy workflows. Optimized for AWS cloud infrastructure.</p>
-    </div>
-    <div class="project">
-      <h3>Multi-Tool AI Agent for Workflow Automation</h3>
-      <p>Created a GPT-4 powered autonomous agent capable of using external tools (APIs, calculators, retrievers) to perform multi-step tasks. Designed using LangChain and deployed with API hooks for use in real-time cloud applications.</p>
-    </div>
-  </div>
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 animate-fade-in-up" style="animation-delay: 0.4s;">
+      <h2 class="text-3xl font-bold text-center mb-12">Core Competencies</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 max-w-5xl mx-auto">
+        <!-- Skill Item -->
+        <div class="flex flex-col items-center p-4 bg-light-card dark:bg-dark-card rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform">
+          <i class="fa-brands fa-python text-4xl text-yellow-400 mb-2"></i>
+          <span class="font-semibold">Python</span>
+        </div>
+        <!-- Skill Item -->
+        <div class="flex flex-col items-center p-4 bg-light-card dark:bg-dark-card rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform">
+          <i class="fa-solid fa-robot text-4xl text-accent mb-2"></i>
+          <span class="font-semibold">LLMs & Agents</span>
+        </div>
+        <!-- Skill Item -->
+        <div class="flex flex-col items-center p-4 bg-light-card dark:bg-dark-card rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform">
+          <i class="fa-brands fa-aws text-4xl text-orange-500 mb-2"></i>
+          <span class="font-semibold">AWS</span>
+        </div>
+        <!-- Skill Item -->
+        <div class="flex flex-col items-center p-4 bg-light-card dark:bg-dark-card rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform">
+          <i class="fa-brands fa-react text-4xl text-blue-400 mb-2"></i>
+          <span class="font-semibold">React.js</span>
+        </div>
+        <!-- Skill Item -->
+         <div class="flex flex-col items-center p-4 bg-light-card dark:bg-dark-card rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform">
+          <i class="fa-brands fa-vuejs text-4xl text-green-500 mb-2"></i>
+          <span class="font-semibold">Vue.js</span>
+        </div>
+        <!-- Skill Item -->
+        <div class="flex flex-col items-center p-4 bg-light-card dark:bg-dark-card rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform">
+          <i class="fa-solid fa-server text-4xl text-gray-500 mb-2"></i>
+          <span class="font-semibold">FastAPI</span>
+        </div>
+         <!-- Skill Item -->
+        <div class="flex flex-col items-center p-4 bg-light-card dark:bg-dark-card rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform">
+          <i class="fa-solid fa-database text-4xl text-indigo-500 mb-2"></i>
+          <span class="font-semibold">LangChain</span>
+        </div>
+         <!-- Skill Item -->
+        <div class="flex flex-col items-center p-4 bg-light-card dark:bg-dark-card rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform">
+          <i class="fa-brands fa-docker text-4xl text-sky-500 mb-2"></i>
+          <span class="font-semibold">Docker</span>
+        </div>
+         <!-- Skill Item -->
+        <div class="flex flex-col items-center p-4 bg-light-card dark:bg-dark-card rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform">
+          <i class="fa-solid fa-cogs text-4xl text-teal-500 mb-2"></i>
+          <span class="font-semibold">Gen AI</span>
+        </div>
+         <!-- Skill Item -->
+        <div class="flex flex-col items-center p-4 bg-light-card dark:bg-dark-card rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform">
+          <i class="fa-solid fa-cloud text-4xl text-red-500 mb-2"></i>
+          <span class="font-semibold">Cloud-Native</span>
+        </div>
+      </div>
+    </section>
 
-  <div id="contact" class="view contact">
-    <h2>Contact</h2>
-    <p><i class="fas fa-envelope"></i> <a href="mailto:prathakgarg@gmail.com">prathakgarg@gmail.com</a></p>
-    <p><i class="fab fa-github"></i> <a href="https://github.com/prathakgarg" target="_blank">github.com/prathakgarg</a></p>
-    <p><i class="fab fa-linkedin"></i> <a href="https://linkedin.com/in/prathakgarg" target="_blank">linkedin.com/in/prathakgarg</a></p>
-  </div>
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 animate-fade-in-up" style="animation-delay: 0.6s;">
+      <h2 class="text-3xl font-bold text-center mb-12">Featured Projects</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Project Card -->
+        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 flex flex-col hover:shadow-xl hover:-translate-y-1 transition-transform">
+          <h3 class="text-xl font-bold mb-2">Smart AI Assistant (RAG + GPT-4)</h3>
+          <p class="text-light-subtle dark:text-dark-subtle flex-grow">Developed an internal AI assistant to answer queries from documents. Used LangChain, GPT-4, and OCR to serve answers from scanned PDFs and cloud docs.</p>
+          <div class="mt-4">
+            <span class="inline-block bg-primary/10 text-primary text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">FastAPI</span>
+            <span class="inline-block bg-accent/10 text-accent text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">GPT-4</span>
+          </div>
+        </div>
+        <!-- Project Card -->
+        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 flex flex-col hover:shadow-xl hover:-translate-y-1 transition-transform">
+          <h3 class="text-xl font-bold mb-2">E2E OCR + AI Document Processor</h3>
+          <p class="text-light-subtle dark:text-dark-subtle flex-grow">Built a cloud pipeline that extracts text from scanned documents via OCR and summarizes key insights using GPT-4, optimizing it for AWS infrastructure.</p>
+          <div class="mt-4">
+            <span class="inline-block bg-primary/10 text-primary text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">AWS</span>
+            <span class="inline-block bg-accent/10 text-accent text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">OCR</span>
+          </div>
+        </div>
+        <!-- Project Card -->
+        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 flex flex-col hover:shadow-xl hover:-translate-y-1 transition-transform">
+          <h3 class="text-xl font-bold mb-2">Multi-Tool AI Agent</h3>
+          <p class="text-light-subtle dark:text-dark-subtle flex-grow">Created a GPT-4 powered autonomous agent using LangChain that leverages external tools (APIs, calculators) to perform multi-step tasks.</p>
+          <div class="mt-4">
+            <span class="inline-block bg-primary/10 text-primary text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">LangChain</span>
+            <span class="inline-block bg-accent/10 text-accent text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Agents</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <footer>
-    <p>&copy; 2025 Prathak Garg</p>
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 text-center animate-fade-in-up" style="animation-delay: 0.8s;">
+      <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
+      <p class="text-light-subtle dark:text-dark-subtle mb-8 max-w-xl mx-auto">I'm always open to discussing new projects, creative ideas, or opportunities to be part of an ambitious vision. Feel free to reach out.</p>
+      <a href="mailto:prathakgarg@gmail.com" class="bg-primary text-white font-semibold px-8 py-4 rounded-lg hover:bg-blue-600 transition-colors">Say Hello</a>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-light-card dark:bg-dark-card border-t border-gray-200 dark:border-gray-800">
+    <div class="container mx-auto px-6 py-8 text-center text-light-subtle dark:text-dark-subtle">
+      <div class="mb-4 flex justify-center space-x-6">
+        <a href="https://github.com/prathakgarg" target="_blank" class="text-2xl hover:text-primary"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/prathakgarg" target="_blank" class="text-2xl hover:text-primary"><i class="fab fa-linkedin"></i></a>
+      </div>
+      <p>&copy; 2025 Prathak Garg. All Rights Reserved.</p>
+    </div>
   </footer>
-
+  
   <script>
-    function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
+    const themeToggle = document.getElementById('theme-toggle');
+    const sunIcon = '<i class="fa-solid fa-sun"></i>';
+    const moonIcon = '<i class="fa-solid fa-moon"></i>';
+
+    // Check for saved theme in localStorage and apply it
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+      themeToggle.innerHTML = sunIcon;
+    } else {
+      document.documentElement.classList.remove('dark');
+      themeToggle.innerHTML = moonIcon;
     }
 
-    function showView(id) {
-        const currentView = document.querySelector('.view.active');
-        if (currentView.id === id) return;
-    
-        const newView = document.getElementById(id);
-    
-        currentView.style.opacity = '0';
-        currentView.style.pointerEvents = 'none';
-    
-        setTimeout(() => {
-          currentView.style.display = 'none';
-          currentView.classList.remove('active');
-    
-          newView.style.display = 'block';
-          newView.style.opacity = '1';
-          newView.style.pointerEvents = 'auto';
-    
-          requestAnimationFrame(() => {
-            newView.classList.add('active');
-          });
-        }, 400);
+    // Theme toggle button event listener
+    themeToggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeToggle.innerHTML = moonIcon;
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeToggle.innerHTML = sunIcon;
       }
+    });
+    
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        mobileMenu.classList.toggle('flex');
+    });
 
   </script>
 </body>
